@@ -1,12 +1,11 @@
-# Minetest Game
+# Nethers & Nodes Game
 
-[![ContentDB](https://content.luanti.org/packages/Minetest/minetest_game/shields/title/)](https://content.luanti.org/packages/Minetest/minetest_game/)
+Nethers & Nodes Game is a fork of Minetest Game, a game for the Minetest engine.
+[![Minetest Game ContentDB](https://content.luanti.org/packages/Minetest/minetest_game/shields/title/)](https://content.luanti.org/packages/Minetest/minetest_game/)
 
-Minetest Game (abbreviated MTG) is a simple and peaceful sandbox game, with no
-real goals or built-in enemy mobs.
+While Minetest Game aims to be a simple and stable game, Nethers & Nodes Game aims to take MTG's core and add DnD roll mechanics to its base.
 
-While it provides a basic gameplay experience out of the box, it is best played
-with mods.
+Since this Luanti fork aims to provide a simple core to add mods to, it is not intended to be a standalone game.
 
 Minetest Game is in perpetual maintenance-only mode, meaning it will not see new
 gameplay features or anything else that breaks compatibility (see
@@ -14,16 +13,12 @@ gameplay features or anything else that breaks compatibility (see
 
 ## Installation
 
-### ContentDB
-
-* Content > Browse Online Content
-* Search for "[Minetest Game](https://content.luanti.org/packages/Minetest/minetest_game/)"
-* Click Install
-
 ### Manually
 
-- Unzip the archive, rename the folder to `minetest_game` and
-place it in `.../minetest/games/`
+- Git: Clone this repository into the `games` directory of your Minetest installation. If you are using a system-wide installation, this directory is located at `/usr/share/minetest/games/`.
+    ```
+    git clone https://github.com/DangSage/nethersnnodes.git
+    ```
 
 - GNU/Linux: If you use a system-wide installation place it in `~/.minetest/games/`.
 
