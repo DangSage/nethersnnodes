@@ -1,0 +1,2 @@
+name = Gameplay mods
+description = Gameplay features for in-game users including nodes and items
