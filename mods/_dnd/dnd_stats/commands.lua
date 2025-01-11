@@ -72,19 +72,20 @@ minetest.register_chatcommand("get_dnd_stat", {
     end
 })
 
--- Reset player's DnD stats
-minetest.register_chatcommand("reset_dnd_stats", {
+-- Reset player's DnD stats to the default values
+minetest.register_chatcommand("reset_sheet", {
     params = "<player>",
-    description = "Reset a player's DnD stats.",
+    description = "Reset a player's DnD stats to the default values.",
     privs = {server = true},
     func = function(name, param)
         local player_name = param:match("^(%S+)$")
         local player = minetest.get_player_by_name(player_name)
         if player then
-            player_stats[player_name] = default_dnd_stats
-            return true, "Reset " .. player_name .. "'s DnD stats"
+            dnd_stats.reset(player)
+            sfinv.set_page(player, "dnd_stats:stats")
+            return true, "Reset DnD stats for " .. player_name
         else
-            return false, "Player not found. Usage: /reset_dnd_stats <player>"
+            return false, "Player not found. Usage: /reset_sheet <player>"
         end
     end
 })

@@ -126,6 +126,29 @@ function dnd_stats.apply_buffered_changes(player)
     end
 end
 
+-- Reset buffered changes to the actual stats (for resetting allocation)
+function dnd_stats.reset_buffer(player)
+    local name = player:get_player_name()
+    local stats = player_stats[name]
+    if stats then
+        stats.buffer = table.copy(stats.current)
+        -- Save to metadata
+        player:get_meta():set_string("dnd_stats", minetest.serialize(stats))
+    end
+end
+
+function dnd_stats.reset(entity)
+    if entity:is_player() then
+        local name = entity:get_player_name()
+        player_stats[name] = nil
+        entity:get_meta():set_string("dnd_stats", "")
+    else
+        local properties = entity:get_properties()
+        properties.statsheet = nil
+        entity:set_properties(properties)
+    end
+end
+
 minetest.register_on_joinplayer(function(player)
     initialize_dnd_stats(player)
 end)
