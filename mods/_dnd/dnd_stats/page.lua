@@ -1,4 +1,4 @@
--- page.lua
+-- Contains the sfinv page for the player's stats and all GUI interactions with it.
 
 -- Function to create the sfinv page for the player's stats
 local function create_sfinv_page(player)
