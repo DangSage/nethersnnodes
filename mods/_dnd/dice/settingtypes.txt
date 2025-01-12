@@ -1,0 +1,7 @@
+# Setting types for dnd_dice mod
+
+# Format: <name> (<type>) <default> <description>
+
+dnd_dice.show_roll_messages (bool) true Show roll messages in chat
+dnd_dice.show_last_roll (bool) true Show last roll in HUD
+dnd_dice.roll_cooldown (int) 2 Cooldown time (in seconds) between dice rolls
