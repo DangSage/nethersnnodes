@@ -95,6 +95,10 @@ if legacy_setting_getbool("item_drop.enable_item_pickup",
 
 	-- adds the item to the inventory and removes the object
 	local function collect_item(ent, pos, player)
+		-- if players not sneaking, don't pick up items
+		if not player:get_player_control().sneak then
+			return
+		end
 		item_drop.before_collect(ent, pos, player)
 		minetest.sound_play("item_drop_pickup", {
 			pos = pos,
