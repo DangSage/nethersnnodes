@@ -155,4 +155,4 @@ end)
 
 -- Require the commands and page handling files
 dofile(minetest.get_modpath("dnd_stats") .. "/commands.lua")
-dofile(minetest.get_modpath("dnd_stats") .. "/page.lua")
+dofile(minetest.get_modpath("dnd_stats") .. "/pages.lua")
