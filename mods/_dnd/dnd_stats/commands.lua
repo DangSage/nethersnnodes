@@ -79,6 +79,9 @@ minetest.register_chatcommand("reset_sheet", {
     privs = {server = true},
     func = function(name, param)
         local player_name = param:match("^(%S+)$")
+        if not player_name then
+            return false, "Invalid parameters. Usage: /reset_sheet <player>"
+        end
         local player = minetest.get_player_by_name(player_name)
         if player then
             dnd_stats.reset(player)

@@ -100,9 +100,8 @@ minetest.register_chatcommand("roll", {
     privs = {interact = true},
     func = function(name, param)
         local total = 0
-        local result_string = ""
+        local result_string = {}
         local valid = true
-        local first = true
         local roll_name, dice_param = param:match("^(%S+)%s+(.+)$")
         
         if not dice_param then
@@ -118,11 +117,7 @@ minetest.register_chatcommand("roll", {
 
                 if result then
                     total = total + result
-                    if not first then
-                        result_string = result_string .. "+"
-                    end
-                    result_string = result_string .. result
-                    first = false
+                    table.insert(result_string, result)
                 else
                     valid = false
                     minetest.chat_send_player(name, err)
@@ -132,11 +127,7 @@ minetest.register_chatcommand("roll", {
                 local constant = tonumber(dice_expr)
                 if constant then
                     total = total + constant
-                    if not first then
-                        result_string = result_string .. "+"
-                    end
-                    result_string = result_string .. constant
-                    first = false
+                    table.insert(result_string, constant)
                 else
                     valid = false
                     minetest.chat_send_player(name, "Invalid dice expression: " .. dice_expr)
@@ -147,7 +138,7 @@ minetest.register_chatcommand("roll", {
 
         if valid then
             local message = roll_name .. minetest.colorize("#aaaaaa",
-                " rolled " .. dice_param .. ": " .. result_string .. " = ") ..
+                " rolled " .. dice_param .. ": " .. table.concat(result_string, "+") .. " = ") ..
                 minetest.colorize("#ffa600", tostring(total))
             if show_roll_messages then
                 minetest.chat_send_all(message)
@@ -170,23 +161,59 @@ local _collision = {
     fixed = {-0.28, -0.5, -0.28, 0.28, 0.0575, 0.28}
 }
 
+local function play_sound(sound, params)
+    minetest.sound_play(sound, params)
+end
+
+local function roll_dice(dice, player_name, pos)    -- Roll the die node and update
+    local result, err = dnd_dice.roll(dice, 1)
+    if result then
+        -- player sounds
+        play_sound("default_dig_snappy", {to_player = player_name, gain = 0.25})
+        dnd_dice.roll_msg(player_name, dice, result)
+        dnd_dice.store_last_roll(minetest.get_player_by_name(player_name), dice, result)
+        last_interaction[player_name] = {minetest.get_gametime(), result}
+        -- Store the result in node metadata
+        local meta = minetest.get_meta(pos)
+        meta:set_int("dice_result", result)
+        -- Update the node to trigger a visual update and rotate it a bit
+        meta:set_string("infotext", "Die (" .. tostring(dice) .. ") rolled on " .. tostring(result))
+        local node = minetest.get_node(pos)
+        node.param2 = (node.param2 + 1) % 4  -- Rotate the node
+        minetest.swap_node(pos, {
+            name = "dnd_dice:" .. dice,
+            param2 = node.param2
+        })
+    else
+        minetest.chat_send_player(player_name, err)
+    end
+end
+
 for dice, sides in pairs(di_type) do
-    minetest.register_node("dnd_dice:" .. dice, {
-        description = "Di (" .. dice .. ")",
+    local node_name = "dnd_dice:" .. dice
+    local description = "Die (" .. dice .. ")"
+    local tiles = {
+        "dice_base.png^[colorize:#" .. hex_colors[dice] ..
+        ":100".."^[combine:128x128:0,0=dice_" .. sides .. ".png",
+    }
+
+    minetest.register_node(node_name, {
+        description = description,
         drawtype = "mesh",
         mesh = dice .. ".obj",
         use_texture_alpha = "clip",
-        tiles = {
-            "dice_base.png^[colorize:#" .. hex_colors[dice] ..
-            ":100".."^[combine:128x128:0,0=dice_" .. sides .. ".png",
-        },
+        tiles = tiles,
         collision_box = { type = "fixed", fixed = {0,0,0,0,0,0} },
         selection_box = _collision,
         paramtype = "light",
         paramtype2 = "facedir",
         groups = {oddly_breakable_by_hand = 3},
-        drop = "dnd_dice:" .. dice,
-        on_place = minetest.rotate_node,
+        drop = node_name,
+        on_place = function(itemstack, placer, pointed_thing)
+            local pos = pointed_thing.above
+            play_sound("default_place_node_hard", {pos = pos, gain = 0.5})
+            return minetest.item_place(itemstack, placer, pointed_thing)
+        end,
         on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
             local player_name = clicker:get_player_name()
             local current_time = minetest.get_gametime()
@@ -195,28 +222,7 @@ for dice, sides in pairs(di_type) do
                 return  -- Prevent spamming
             end
             
-            local result, err = dnd_dice.roll(dice, 1)
-            if result then
-                -- player sounds
-                minetest.sound_play("default_dig_snappy", {to_player = player_name, gain = 0.25})
-                dnd_dice.roll_msg(player_name, dice, result)
-                dnd_dice.store_last_roll(clicker, dice, result)
-                last_interaction[player_name] = {current_time, result}
-                -- Store the result in node metadata
-                local meta = minetest.get_meta(pos)
-                meta:set_int("dice_result", result)
-                -- Update the node to trigger a visual update and rotate it a bit
-                meta:set_string("infotext", "Di (" .. tostring(dice) .. ") rolled on " .. tostring(result))
-                local node = minetest.get_node(pos)
-                node.param2 = (node.param2 + 1) % 4  -- Rotate the node
-                minetest.swap_node(pos, {
-                    name = "dnd_dice:" .. dice,
-                    param2 = node.param2
-                })
-                minetest.get_node_timer(pos):start(0.1)
-            else
-                minetest.chat_send_player(player_name, err)
-            end
+            roll_dice(dice, player_name, pos)
         end
     })
 end

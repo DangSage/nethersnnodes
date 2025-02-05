@@ -1,19 +1,5 @@
 -- All UI elements related to stats and char sheets
 
-hud_stats = {}  -- HUD elements for the character sheet details
-
-local colors = {
-    W = "#FFFFFF", -- Normal text color
-    GR = "#303030", -- Gray for gray
-    BL = "#000000", -- Gray for gray
-    R = "#FF0000", -- Red for strength
-    G = "#00FF00", -- Green for dexterity
-    B = "#0000FF", -- Blue for intelligence
-    M = "#FF00FF", -- Magenta for Constitution
-    Y = "#FFFF00", -- Yellow for charisma
-    C = "#00FFFF" -- Cyan for wisdom
-}
-
 -- ======================================================================= SFINV Formspec Page for Stats
 -- Function to create the sfinv page for the player's stats
 local function create_sfinv_page(player)
@@ -91,48 +77,3 @@ sfinv.register_page("dnd_stats:stats", {
         sfinv.set_page(player, "dnd_stats:stats")
     end
 })
-
--- ======================================================================= Sneak HUD
-
-minetest.register_globalstep(function(dtime)
-    for _, player in ipairs(minetest.get_connected_players()) do
-        local name = player:get_player_name()
-        local meta = player:get_meta()
-        if hud_stats[name] then
-            if player:get_player_control().sneak then
-                local hud_id = hud_stats[name]
-                    local strength = minetest.colorize(colors.R, tostring(dnd_stats.get(player, "strength", true) or 0))
-                    local dexterity = minetest.colorize(colors.G, tostring(dnd_stats.get(player, "dexterity", true) or 0))
-                    local constitution = minetest.colorize(colors.M, tostring(dnd_stats.get(player, "constitution", true) or 0))
-                    local intelligence = minetest.colorize(colors.B, tostring(dnd_stats.get(player, "intelligence", true) or 0))
-                    local wisdom = minetest.colorize(colors.C, tostring(dnd_stats.get(player, "wisdom", true) or 0))
-                    local charisma = minetest.colorize(colors.Y, tostring(dnd_stats.get(player, "charisma", true) or 0))
-                    local unallocated = minetest.colorize(colors.W, tostring(dnd_stats.get(player, "unallocated", true) or 0))
-                    player:hud_change(hud_id, "text", "STRENGTH: " .. strength .. "\n" ..
-                        "DEXTERITY: " .. dexterity .. "\n" ..
-                        "CONSTITUTION: " .. constitution .. "\n" ..
-                        "INTELLIGENCE: " .. intelligence .. "\n" ..
-                        "WISDOM: " .. wisdom .. "\n" ..
-                        "CHARISMA: " .. charisma .. "\n\n" ..
-                        "UNALLOCATED: " .. unallocated)
-            else
-                player:hud_change(hud_stats[name], "text", "")
-            end
-        end
-    end
-end)
-
-
-minetest.register_on_joinplayer(function(player)
-    local name = player:get_player_name()
-    local hud_id = player:hud_add({
-        hud_elem_type = "text",
-        position = {x = 0.9, y = 0},
-        offset = {x = 0, y = 0},
-        text = "",
-        alignment = {x = 0, y = 2},
-        scale = {x = 100, y = 100},
-        number = 0xFFFFFF
-    })
-    hud_stats[name] = hud_id
-end)

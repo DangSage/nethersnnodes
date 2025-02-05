@@ -5,6 +5,18 @@
 dnd_stats = {}
 local player_stats = {}
 
+colors = {
+    W = "#FFFFFF", -- Normal text color
+    GR = "#303030", -- Gray for gray
+    BL = "#000000", -- Gray for gray
+    R = "#FF0000", -- Red for strength
+    G = "#00FF00", -- Green for dexterity
+    B = "#0000FF", -- Blue for intelligence
+    M = "#FF00FF", -- Magenta for Constitution
+    Y = "#FFFF00", -- Yellow for charisma
+    C = "#00FFFF" -- Cyan for wisdom
+}
+
 -- Default DnD stats table
 default_dnd_stats = {
     unallocated = 20,
@@ -156,3 +168,4 @@ end)
 -- Require the commands and page handling files
 dofile(minetest.get_modpath("dnd_stats") .. "/commands.lua")
 dofile(minetest.get_modpath("dnd_stats") .. "/pages.lua")
+dofile(minetest.get_modpath("dnd_stats") .. "/infotext.lua")
