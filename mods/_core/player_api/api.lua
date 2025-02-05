@@ -211,20 +211,18 @@ function player_api.globalstep()
 			local body_y_rotation = player:get_look_horizontal() * 180 / math.pi
 
 			-- Apply rotations to head and body bones directly without smoothing
-			if player_data.head_x_rotation ~= head_x_rotation or player_data.body_y_rotation ~= body_y_rotation then
-				player:set_bone_position("Head", {x = 0, y = 6, z = 0}, {
-					x = head_x_rotation + (controls.sneak and 45 or 0),
-					y = 0,
-					z = 0
-				})
-				player_data.head_x_rotation = head_x_rotation
-				player_data.body_y_rotation = body_y_rotation
-			end
+			player:set_bone_position("Head", {x = 0, y = 6, z = 0}, {
+				x = head_x_rotation + (controls.sneak and 45 or 0),
+				y = 0,
+				z = 0
+			})
+			player_data.head_x_rotation = head_x_rotation
 
 			-- Apply animations based on what the player is doing
 			if player:get_hp() == 0 then
 				player_set_animation(player, "lay")
 			elseif controls.up or controls.down or controls.left or controls.right then
+				local strafe_offset = (controls.left and -15 or 0) + (controls.right and 15 or 0)
 				if controls.LMB or controls.RMB then
 					player_set_animation(player, anim_prefix .. "walk_mine", animation_speed_mod)
 				else
