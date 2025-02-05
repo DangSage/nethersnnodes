@@ -208,8 +208,6 @@ function player_api.globalstep()
 			-- animating head and camera
 			-- Rotate head and body based on player controls
 			local head_x_rotation = -player:get_look_vertical() * 180 / math.pi
-			local body_y_rotation = player:get_look_horizontal() * 180 / math.pi
-
 			-- Apply rotations to head and body bones directly without smoothing
 			player:set_bone_position("Head", {x = 0, y = 6, z = 0}, {
 				x = head_x_rotation + (controls.sneak and 45 or 0),
@@ -222,7 +220,6 @@ function player_api.globalstep()
 			if player:get_hp() == 0 then
 				player_set_animation(player, "lay")
 			elseif controls.up or controls.down or controls.left or controls.right then
-				local strafe_offset = (controls.left and -15 or 0) + (controls.right and 15 or 0)
 				if controls.LMB or controls.RMB then
 					player_set_animation(player, anim_prefix .. "walk_mine", animation_speed_mod)
 				else
