@@ -3,7 +3,7 @@ local player_info = {}
 
 --Get settingtypes
 local max_stamina = 20
-local speed_multiplier = 1.75
+local speed_multiplier = 1.5
 local jump_multiplier = 1.0
 local step_interval = 0.15
 local drain_hunger = false
@@ -171,13 +171,12 @@ minetest.register_globalstep(function(dtime)
                 hbhunger.set_hunger_raw(playerstats.ref)
             end
 
-            if spawn_particles then
-
+            if spawn_particles and playerstats.grounded then
                 local texture = "tnt_smoke.png"
                 local glow = 0
                 local acceleration = {x = 0, y = -9.8, z = 0}
 
-                if playerstats.grounded and minetest.registered_nodes[node.name] then
+                if minetest.registered_nodes[node.name] then
                     if minetest.registered_nodes[node.name].tiles and
                     type(minetest.registered_nodes[node.name].tiles[1]) == "string" then
                         texture = minetest.registered_nodes[node.name].tiles[1]
