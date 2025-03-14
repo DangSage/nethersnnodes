@@ -135,3 +135,18 @@ minetest.register_chatcommand("setblock_here", {
         end
 	end,
 })
+
+-- toggle time progression "stoptime", relies on settime default privilege
+minetest.register_chatcommand("stoptime", {
+    description = "Toggle time progression",
+    privs = {settime = true},
+    func = function(name)
+        if minetest.settings:get_bool("time_speed") then
+            minetest.settings:set("time_speed", "0")
+            return true, "Time progression stopped."
+        else
+            minetest.settings:set("time_speed", "72")
+            return true, "Time progression started."
+        end
+    end,
+})
