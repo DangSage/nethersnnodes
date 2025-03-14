@@ -20,9 +20,30 @@ edit_skin = {
 	steve = {}, -- Stores skin values for Steve skin
 	alex = {}, -- Stores skin values for Alex skin
 	base = {}, -- List of base textures
-	
-	-- Base color is separate to keep the number of junk nodes registered in check
-	base_color = {0xffeeb592, 0xffb47a57, 0xff8d471d},
+
+	-- Base color (ARGB) is separate to keep the number of junk nodes registered in check
+	base_color = {
+		0xfff5c584,
+		0xffe3ad6c,
+		0xffd8a06b,
+		0xffc99669,
+		0xffb17050,
+		0xff9a6a40,
+		0xff9a581e,
+		0xff8d471d,
+		0xff613915,
+		-- weird colors below
+
+		0xffc21c1c,
+		0xffae2ad3,
+		0xff178c32,
+		0xff449acc,
+		0xffd0672a,
+		0xffe3dd26,
+		0xff666666,
+		0xffeeeeee,
+		0xff151515,
+	},
 	color = {
 		0xff613915, -- 1 Dark brown Steve hair, Alex bottom
 		0xff97491b, -- 2 Medium brown
@@ -363,17 +384,17 @@ function edit_skin.show_formspec(player)
 				"box[0.4,0;2.49,0.38;red]" ..
 				"label[0.2,0.2;-]" ..
 				"scrollbar[0.4,0;2.5,0.4;horizontal;red;" .. red .."]" ..
-				"label[2.9,0.2;+]" ..
+				"label[3.0,0.2;+]" ..
 				
 				"box[0.4,0.6;2.49,0.38;green]" ..
 				"label[0.2,0.8;-]" ..
 				"scrollbar[0.4,0.6;2.5,0.4;horizontal;green;" .. green .."]" ..
-				"label[2.9,0.8;+]" ..
+				"label[3.0,0.8;+]" ..
 				
 				"box[0.4,1.2;2.49,0.38;blue]" ..
 				"label[0.2,1.4;-]" ..
 				"scrollbar[0.4,1.2;2.5,0.4;horizontal;blue;" .. blue .. "]" ..
-				"label[2.9,1.4;+]" ..
+				"label[3.0,1.4;+]" ..
 				
 				"container_end[]"
 		end
@@ -562,11 +583,21 @@ local function init()
 	edit_skin.steve.hair_color = edit_skin.color[1]
 	edit_skin.steve.top_color = edit_skin.color[12]
 	edit_skin.steve.bottom_color = edit_skin.color[13]
-	
+	edit_skin.steve.hair = edit_skin.hair[2]
+	edit_skin.steve.eye = edit_skin.eye[1]
+	edit_skin.steve.mouth = edit_skin.mouth[1]
+	edit_skin.steve.top = edit_skin.top[1]
+	edit_skin.steve.bottom = edit_skin.bottom[1]
+
 	edit_skin.alex.base_color = edit_skin.base_color[1]
 	edit_skin.alex.hair_color = edit_skin.color[15]
 	edit_skin.alex.top_color = edit_skin.color[8]
 	edit_skin.alex.bottom_color = edit_skin.color[1]
+	edit_skin.alex.hair = edit_skin.hair[1]
+	edit_skin.alex.eye = edit_skin.eye[1]
+	edit_skin.alex.mouth = edit_skin.mouth[1]
+	edit_skin.alex.top = edit_skin.top[1]
+	edit_skin.alex.bottom = edit_skin.bottom[1]
 	
 	-- Register junk first person hand nodes
 	local function make_texture(base, colorspec)

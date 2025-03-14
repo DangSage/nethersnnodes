@@ -342,7 +342,7 @@
 	{
 		"type": "base",
 		"texture": "edit_skin_base_1.png",
-		"mask": "edit_skin_base_1_mask.png",
+		"mask": "edit_skin_base_mask.png",
 		"steve": true,
 		"alex": true
 	}
