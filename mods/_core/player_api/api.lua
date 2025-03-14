@@ -209,7 +209,7 @@ function player_api.globalstep()
 			-- Rotate head and body based on player controls
 			local head_x_rotation = -player:get_look_vertical() * 180 / math.pi
 			-- Apply rotations to head and body bones directly without smoothing
-			player:set_bone_position("Head", {x = 0, y = 6, z = 0}, {
+			player:set_bone_position("Head", {x = 0, y = 6.21, z = 0}, {
 				x = head_x_rotation + (controls.sneak and 45 or 0),
 				y = 0,
 				z = 0
