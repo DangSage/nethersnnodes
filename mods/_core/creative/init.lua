@@ -53,7 +53,7 @@ if minetest.is_creative_enabled("") then
 		-- To speed up digging in creative, hand 'maxlevel' and 'digtime' have been
 		-- increased such that nodes of differing levels have an insignificant
 		-- effect on digtime.
-		local digtime = 42
+		local digtime = 10
 		local caps = {times = {digtime, digtime, digtime}, uses = 0, maxlevel = 256}
 
 		-- Override the hand tool
