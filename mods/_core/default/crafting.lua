@@ -439,6 +439,13 @@ minetest.register_craft({
 	recipe = "default:desert_cobble",
 })
 
+minetest.register_craft({
+	type = "cooking",
+	output = "default:trash",
+	recipe = "default:trash",
+	cooktime = 1,
+})
+
 
 --
 -- Fuels

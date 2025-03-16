@@ -333,6 +333,16 @@ minetest.register_craftitem("default:steel_ingot", {
 	inventory_image = "default_steel_ingot.png"
 })
 
+minetest.register_craftitem("default:steel_link", {
+	description = S("Steel Link"),
+	inventory_image = "default_steel_link.png"
+})
+
+minetest.register_craftitem("default:steel_nugget", {
+	description = S("Steel Nugget"),
+	inventory_image = "default_steel_nugget.png"
+})
+
 minetest.register_craftitem("default:stick", {
 	description = S("Stick"),
 	inventory_image = "default_stick.png",
@@ -347,6 +357,11 @@ minetest.register_craftitem("default:tin_ingot", {
 minetest.register_craftitem("default:tin_lump", {
 	description = S("Tin Lump"),
 	inventory_image = "default_tin_lump.png"
+})
+
+minetest.register_craftitem("default:trash", {
+	description = S("Burnt Trash"),
+	inventory_image = "trash.png"
 })
 
 --
@@ -398,6 +413,29 @@ minetest.register_craft({
 	output = "default:copper_ingot 9",
 	recipe = {
 		{"default:copperblock"},
+	}
+})
+
+minetest.register_craft({
+	output = "default:steel_nugget 7",
+	recipe = {
+		{"default:steel_ingot"},
+	}
+})
+
+minetest.register_craft({
+	output = "default:steel_nugget 1",
+	recipe = {
+		{"default:steel_link"},
+	}
+})
+
+minetest.register_craft({
+	output = "default:iron_lump",
+	recipe = {
+		{"default:steel_nugget", "default:steel_nugget", "default:steel_nugget"},
+		{"default:steel_nugget", "default:steel_nugget", "default:steel_nugget"},
+		{"default:steel_nugget", "default:steel_nugget", "default:steel_nugget"},
 	}
 })
 
@@ -481,18 +519,21 @@ minetest.register_craft({
 	type = "cooking",
 	output = "default:clay_brick",
 	recipe = "default:clay_lump",
+	cooktime = 10,
 })
 
 minetest.register_craft({
 	type = "cooking",
 	output = "default:copper_ingot",
 	recipe = "default:copper_lump",
+	cooktime = 12,
 })
 
 minetest.register_craft({
 	type = "cooking",
 	output = "default:gold_ingot",
 	recipe = "default:gold_lump",
+	cooktime = 12,
 })
 
 
@@ -500,12 +541,21 @@ minetest.register_craft({
 	type = "cooking",
 	output = "default:steel_ingot",
 	recipe = "default:iron_lump",
+	cooktime = 13,
+})
+
+minetest.register_craft({
+	type = "cooking",
+	output = "default:steel_link",
+	recipe = "default:steel_nugget",
+	cooktime = 4,
 })
 
 minetest.register_craft({
 	type = "cooking",
 	output = "default:tin_ingot",
 	recipe = "default:tin_lump",
+	cooktime = 10,
 })
 
 --

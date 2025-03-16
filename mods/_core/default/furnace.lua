@@ -148,6 +148,12 @@ local function furnace_node_timer(pos, elapsed)
 		-- Check if we have cookable content
 		local aftercooked
 		cooked, aftercooked = minetest.get_craft_result({method = "cooking", width = 1, items = srclist})
+		
+		-- if not cookable (time == 0), change cooked to default trash item
+		if cooked.time == 0 then
+			cooked = {item = ItemStack("default:trash"), time = 10}
+		end
+
 		cookable = cooked.time ~= 0
 
 		local el = math.min(elapsed, fuel_totaltime - fuel_time)
@@ -219,7 +225,6 @@ local function furnace_node_timer(pos, elapsed)
 			end
 			fuel_time = 0
 		end
-
 		elapsed = elapsed - el
 	end
 
@@ -250,7 +255,7 @@ local function furnace_node_timer(pos, elapsed)
 		end
 	else
 		if srclist and not srclist[1]:is_empty() then
-			item_state = S("Not cookable")
+			item_state = S("Burning")
 		else
 			item_state = S("Empty")
 		end

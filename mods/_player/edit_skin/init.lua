@@ -173,8 +173,7 @@ function edit_skin.update_player_skin(player)
 	end
 	
 	local name = player:get_player_name()
-	if
-		minetest.global_exists("armor") and
+	if minetest.global_exists("armor") and
 		armor.textures and armor.textures[name]
 	then
 		armor.textures[name].skin = output
@@ -681,6 +680,7 @@ local function init()
 			return edit_skin.compile_skin(edit_skin.player_skins[minetest.get_player_by_name(name)])
 		end
 	end
+
 	if minetest.global_exists("inventory_plus") then
 		minetest.register_on_player_receive_fields(function(player, formname, fields)
 			if formname == "" and fields.edit_skin then

@@ -290,7 +290,7 @@ minetest.register_node("anvil:anvil", {
 		"You can then repair the damaged tool by striking it with a blacksmith's hammer. " ..
 		"Repeated blows may be necessary to fully repair a badly worn tool. " ..
 		"To retrieve the tool either punch or right-click the anvil with an empty hand."),
-	tiles = {"default_stone.png"},
+	tiles = {"default_steel_block.png"},
 	paramtype = "light",
 	paramtype2 = "facedir",
 	groups = {cracky = 2},
@@ -302,7 +302,7 @@ minetest.register_node("anvil:anvil", {
 			{-0.5, -0.5, -0.3, 0.5, -0.4, 0.3},
 			{-0.35, -0.4, -0.25, 0.35, -0.3, 0.25},
 			{-0.3, -0.3, -0.15, 0.3, -0.1, 0.15},
-			{-0.35, -0.1, -0.2, 0.35, 0.1, 0.2},
+			{-0.35, -0.1, -0.2, 0.35, 0.3, 0.2},
 		},
 	},
 	selection_box = {
@@ -311,7 +311,7 @@ minetest.register_node("anvil:anvil", {
 			{-0.5, -0.5, -0.3, 0.5, -0.4, 0.3},
 			{-0.35, -0.4, -0.25, 0.35, -0.3, 0.25},
 			{-0.3, -0.3, -0.15, 0.3, -0.1, 0.15},
-			{-0.35, -0.1, -0.2, 0.35, 0.1, 0.2},
+			{-0.35, -0.1, -0.2, 0.35, 0.3, 0.2},
 		}
 	},
 

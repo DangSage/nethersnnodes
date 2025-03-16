@@ -311,9 +311,9 @@ minetest.register_tool("default:axe_diamond", {
 -- Swords
 --
 
-minetest.register_tool("default:sword_wood", {
-	description = S("Wooden Sword"),
-	inventory_image = "default_tool_woodsword.png",
+minetest.register_tool("default:dirk_wood", {
+	description = S("Wooden Dirk"),
+	inventory_image = "default_tool_wood_dirk.png",
 	tool_capabilities = {
 		full_punch_interval = 1,
 		max_drop_level=0,
@@ -326,9 +326,9 @@ minetest.register_tool("default:sword_wood", {
 	groups = {sword = 1, flammable = 2}
 })
 
-minetest.register_tool("default:sword_stone", {
-	description = S("Stone Sword"),
-	inventory_image = "default_tool_stonesword.png",
+minetest.register_tool("default:dirk_stone", {
+	description = S("Stone Dirk"),
+	inventory_image = "default_tool_stone_dirk.png",
 	tool_capabilities = {
 		full_punch_interval = 1.2,
 		max_drop_level=0,
@@ -341,9 +341,9 @@ minetest.register_tool("default:sword_stone", {
 	groups = {sword = 1}
 })
 
-minetest.register_tool("default:sword_bronze", {
-	description = S("Bronze Sword"),
-	inventory_image = "default_tool_bronzesword.png",
+minetest.register_tool("default:dirk_bronze", {
+	description = S("Bronze Dirk"),
+	inventory_image = "default_tool_bronze_dirk.png",
 	tool_capabilities = {
 		full_punch_interval = 0.8,
 		max_drop_level=1,
@@ -356,9 +356,9 @@ minetest.register_tool("default:sword_bronze", {
 	groups = {sword = 1}
 })
 
-minetest.register_tool("default:sword_steel", {
-	description = S("Steel Sword"),
-	inventory_image = "default_tool_steelsword.png",
+minetest.register_tool("default:dirk_steel", {
+	description = S("Steel Dirk"),
+	inventory_image = "default_tool_steel_dirk.png",
 	tool_capabilities = {
 		full_punch_interval = 0.8,
 		max_drop_level=1,
@@ -371,9 +371,9 @@ minetest.register_tool("default:sword_steel", {
 	groups = {sword = 1}
 })
 
-minetest.register_tool("default:sword_mese", {
-	description = S("Mese Sword"),
-	inventory_image = "default_tool_mesesword.png",
+minetest.register_tool("default:dirk_mese", {
+	description = S("Mese Dirk"),
+	inventory_image = "default_tool_mese_dirk.png",
 	tool_capabilities = {
 		full_punch_interval = 0.7,
 		max_drop_level=1,
@@ -386,9 +386,9 @@ minetest.register_tool("default:sword_mese", {
 	groups = {sword = 1}
 })
 
-minetest.register_tool("default:sword_diamond", {
-	description = S("Diamond Sword"),
-	inventory_image = "default_tool_diamondsword.png",
+minetest.register_tool("default:dirk_diamond", {
+	description = S("Diamond Dirk"),
+	inventory_image = "default_tool_diamond_dirk.png",
 	tool_capabilities = {
 		full_punch_interval = 0.7,
 		max_drop_level=1,
@@ -396,6 +396,21 @@ minetest.register_tool("default:sword_diamond", {
 			snappy={times={[1]=1.90, [2]=0.90, [3]=0.30}, uses=40, maxlevel=3},
 		},
 		damage_groups = {fleshy=8},
+	},
+	sound = {breaks = "default_tool_breaks"},
+	groups = {sword = 1}
+})
+
+minetest.register_tool("default:dirk_obsidian", {
+	description = S("Obsidian Dirk"),
+	inventory_image = "default_tool_obsidian_dirk.png",
+	tool_capabilities = {
+		full_punch_interval = 0.5,
+		max_drop_level=1,
+		groupcaps={
+			snappy={times={[1]=1.90, [2]=0.90, [3]=0.30}, uses=40, maxlevel=3},
+		},
+		damage_groups = {fleshy=7},
 	},
 	sound = {breaks = "default_tool_breaks"},
 	groups = {sword = 1}
@@ -443,7 +458,7 @@ for name, mat in pairs(craft_ingreds) do
 	})
 
 	minetest.register_craft({
-		output = "default:sword_".. name,
+		output = "default:dirk_".. name,
 		recipe = {
 			{mat},
 			{mat},
@@ -472,6 +487,6 @@ minetest.register_craft({
 
 minetest.register_craft({
 	type = "fuel",
-	recipe = "default:sword_wood",
+	recipe = "default:dirk_wood",
 	burntime = 5,
 })
