@@ -194,7 +194,7 @@ local function entity_physics(pos, radius, drops)
 					if not obj:get_armor_groups().immortal then
 						obj:punch(obj, 1.0, {
 							full_punch_interval = 1.0,
-							damage_groups = {fleshy = damage},
+							damage_groups = {bludgeon = damage},
 						}, nil)
 					end
 				end

@@ -7,15 +7,15 @@ edit_skin = {
 	item_names = {"base", "footwear", "eye", "mouth", "bottom", "top", "hair", "headwear"},
 	tab_names = {"template", "base", "headwear", "hair", "eye", "mouth", "top", "bottom", "footwear"},
 	tab_descriptions = {
-		template = S("Templates"),
-		base = S("Bases"),
-		footwear = S("Footwears"),
+		template = S("Presets"),
+		base = S("Base"),
+		footwear = S("Shoes"),
 		eye = S("Eyes"),
-		mouth = S("Mouths"),
-		bottom = S("Bottoms"),
-		top = S("Tops"),
-		hair = S("Hairs"),
-		headwear = S("Headwears")
+		mouth = S("Mouth"),
+		bottom = S("Bottom"),
+		top = S("Top"),
+		hair = S("Hair"),
+		headwear = S("Headwear")
 	},
 	steve = {}, -- Stores skin values for Steve skin
 	alex = {}, -- Stores skin values for Alex skin
@@ -267,31 +267,33 @@ function edit_skin.show_formspec(player)
 		local y = 0.3 + (i - 1) * 0.8
 		formspec = formspec ..
 			"style[" .. tab .. ";content_offset=16,0]" ..
-			"button[0.3," .. y .. ";4,0.8;" .. tab .. ";" .. edit_skin.tab_descriptions[tab] .. "]" ..
+			"button[0.3," .. y .. ";2,0.8;" .. tab .. ";" .. edit_skin.tab_descriptions[tab] .. "]" ..
 			"image[0.4," .. y + 0.1 .. ";0.6,0.6;edit_skin_icons.png^[verticalframe:9:" .. i - 1 .. "]"
 	end
 	
 	local mesh = player:get_properties().mesh or ""
 	local textures = player_api.get_textures(player)
 	textures[2] = "blank.png" -- Clear out the armor
+
 	formspec = formspec ..
-		"model[11.5,2;2,7;player_mesh;" .. mesh .. ";" ..
+		"image[9.25,0.5;4.5,7;edit_skin_bg.png]" ..
+		"model[10,1.2;3,6;player_mesh;" .. mesh .. ";" ..
 		table.concat(textures, ",") ..
 		";0,180;false;true;0,0]"
 	
 	if active_tab == "template" then
 		formspec = formspec ..
-			"model[5,2;2,3;player_mesh;" .. mesh .. ";" ..
+			"model[3,2;2,4;player_mesh;" .. mesh .. ";" ..
 			edit_skin.compile_skin(edit_skin.steve) ..
 			",blank.png,blank.png;0,180;false;true;0,0]" ..
 
-			"button[5,5.2;2,0.8;steve;" .. S("Select") .. "]" ..
+			"button[3,6.2;2,0.8;steve;" .. S("Select") .. "]" ..
 
-			"model[7.5,2;2,3;player_mesh;" .. mesh .. ";" ..
+			"model[5.5,2;2,4;player_mesh;" .. mesh .. ";" ..
 			edit_skin.compile_skin(edit_skin.alex) ..
 			",blank.png,blank.png;0,180;false;true;0,0]" ..
 			
-			"button[7.5,5.2;2,0.8;alex;" .. S("Select") .. "]"
+			"button[5.5,6.2;2,0.8;alex;" .. S("Select") .. "]"
 			
 	else
 		formspec = formspec ..
@@ -321,14 +323,14 @@ function edit_skin.show_formspec(player)
 			end
 			
 			local rot_x = -10
-			local rot_y = 20
+			local rot_y = 25
 			if edit_skin.preview_rotations[texture] then
 				rot_x = edit_skin.preview_rotations[texture].x
 				rot_y = edit_skin.preview_rotations[texture].y
 			end
 			
 			i = i - 1
-			local x = 4.5 + i % 4 * 1.6
+			local x = 2.5 + i % 4 * 1.6
 			local y = 0.3 + math.floor(i / 4) * 1.6
 			formspec = formspec ..
 				"model[" .. x .. "," .. y ..
@@ -356,7 +358,7 @@ function edit_skin.show_formspec(player)
 		for i, colorspec in pairs(colors) do
 			local color = color_to_string(colorspec)
 			i = i - 1
-			local x = 4.6 + i % 6 * 0.9
+			local x = 2.5 + i % 6 * 0.9
 			local y = 8 + math.floor(i / 6) * 0.9
 			formspec = formspec ..
 				"image_button[" .. x .. "," .. y ..
@@ -370,30 +372,35 @@ function edit_skin.show_formspec(player)
 					"button[" .. x .. "," .. y .. ";0.8,0.8;" .. color .. ";]"
 			end
 		end
-		
+
 		if not (active_tab == "base") then
 			-- Bitwise Operations !?!?!
 			local red = math.floor(selected_color / 0x10000) - 0xff00
 			local green = math.floor(selected_color / 0x100) - 0xff0000 - red * 0x100
 			local blue = selected_color - 0xff000000 - red * 0x10000 - green * 0x100
 			formspec = formspec ..
-				"container[10.2,8]" ..
-				"scrollbaroptions[min=0;max=255;smallstep=20]" ..
+				"container[9,8]" ..
+				"scrollbaroptions[min=0;max=255;smallstep=1]" ..
 				
-				"box[0.4,0;2.49,0.38;red]" ..
-				"label[0.2,0.2;-]" ..
-				"scrollbar[0.4,0;2.5,0.4;horizontal;red;" .. red .."]" ..
-				"label[3.0,0.2;+]" ..
+				"box[0.25,0;4.49,0.38;red]" ..
+				"scrollbar[0.25,0;4.5,0.4;horizontal;red;" .. red .."]" ..
+				"label[2,0.6;".. "Red: " .. red .."]" ..
+
+				"box[0.25,1;4.49,0.38;green]" ..
+				"scrollbar[0.25,1;4.5,0.4;horizontal;green;" .. green .."]" ..
+				"label[2,1.6;".. "Green: " .. green .."]" ..
 				
-				"box[0.4,0.6;2.49,0.38;green]" ..
-				"label[0.2,0.8;-]" ..
-				"scrollbar[0.4,0.6;2.5,0.4;horizontal;green;" .. green .."]" ..
-				"label[3.0,0.8;+]" ..
+				"box[0.25,2;4.49,0.38;blue]" ..
+				"scrollbar[0.25,2;4.5,0.4;horizontal;blue;" .. blue .."]" ..
+				"label[2,2.6;".. "Blue: " .. blue .."]" ..
+
+				-- "box[0.4,0.6;2.49,0.38;green]" ..
+				-- "scrollbar[0.4,0.6;2.5,0.4;horizontal;green;" .. green .."]" ..
 				
-				"box[0.4,1.2;2.49,0.38;blue]" ..
-				"label[0.2,1.4;-]" ..
-				"scrollbar[0.4,1.2;2.5,0.4;horizontal;blue;" .. blue .. "]" ..
-				"label[3.0,1.4;+]" ..
+				-- "box[0.4,1.2;2.49,0.38;blue]" ..
+				-- "label[0.2,1.4;-]" ..
+				-- "scrollbar[0.4,1.2;2.5,0.4;horizontal;blue;" .. blue .. "]" ..
+				-- "label[3.0,1.4;+]" ..
 				
 				"container_end[]"
 		end

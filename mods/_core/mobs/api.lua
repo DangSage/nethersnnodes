@@ -1139,7 +1139,7 @@ local function entity_physics(pos, radius)
 
 		-- punches work on entities AND players
 		objs[n]:punch(objs[n], 1.0,
-				{full_punch_interval = 1.0, damage_groups = {fleshy = damage}}, pos)
+				{full_punch_interval = 1.0, damage_groups = {bludgeon = damage}}, pos)
 	end
 end
 
@@ -3265,7 +3265,7 @@ function mob_class:on_blast(damage)
 --print("-- blast damage", damage)
 
 	self.object:punch(self.object, 1.0,
-			{full_punch_interval = 1.0, damage_groups = {fleshy = damage}}, nil)
+			{full_punch_interval = 1.0, damage_groups = {bludgeon = damage}}, nil)
 
 	-- return no damage, no knockback, no item drops, mob api handles all
 	return false, false, {}

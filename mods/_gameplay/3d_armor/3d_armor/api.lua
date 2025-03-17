@@ -1,4 +1,3 @@
-
 --- 3D Armor API
 --
 --  @topic api
@@ -24,7 +23,7 @@ local transparent_armor = minetest.settings:get_bool("armor_transparent", false)
 --    description = "Wood Helmet",
 --    inventory_image = "3d_armor_inv_helmet_wood.png",
 --    groups = {armor_head=1, armor_heal=0, armor_use=2000, flammable=1},
---    armor_groups = {fleshy=5},
+--    armor_groups = {bludgeon=5, slash=5, pierce=5},
 --    damage_groups = {cracky=3, snappy=2, choppy=3, crumbly=2, level=1},
 --  }
 
@@ -80,7 +79,6 @@ local transparent_armor = minetest.settings:get_bool("armor_transparent", false)
 -- support for i18n
 local S = minetest.get_translator(minetest.get_current_modname())
 
-local skin_previews = {}
 local use_player_monoids = minetest.global_exists("player_monoids")
 local use_armor_monoid = minetest.global_exists("armor_monoid")
 local use_pova_mod = minetest.get_modpath("pova")
@@ -113,8 +111,7 @@ armor = {
 	elements = {"head", "legs", "torso", "feet"},
 	physics = {"jump", "speed", "gravity"},
 	attributes = {"heal", "fire", "water", "feather"},
-	formspec = "image[2.5,0;2,4;armor_preview]"..
-		default.gui_bg..
+	formspec = default.gui_bg..
 		default.gui_bg_img..
 		default.gui_slots..
 		default.get_hotbar_bg(0, 4.7)..
@@ -124,7 +121,6 @@ armor = {
 	textures = armor_textures,
 	default_skin = "character",
 	materials = {
-		wood = "group:wood",
 		cactus = "default:cactus",
 		steel = "default:steel_ingot",
 		bronze = "default:bronze_ingot",
@@ -132,7 +128,8 @@ armor = {
 		gold = "default:gold_ingot",
 		mithril = "moreores:mithril_ingot",
 		crystal = "ethereal:crystal_ingot",
-		nether = "nether:nether_ingot",
+		chain = "default:steel_link",
+		leather = "mobs:leather",
 	},
 	fire_nodes = {
 		{"nether:lava_source",      5, 8},
@@ -147,7 +144,7 @@ armor = {
 		{"default:torch_ceiling",   1, 1},
 		{"default:torch_wall",      1, 1},
 	},
-	registered_groups = {["fleshy"]=100},
+	registered_groups = {["bludgeon"]=1, ["slash"]=1, ["pierce"]=1},
 	registered_callbacks = {
 		on_update = {},
 		on_equip = {},
@@ -177,6 +174,7 @@ armor.config = {
 	material_mithril = true,
 	material_crystal = true,
 	material_nether = true,
+	material_chain = true,
 	set_elements = "head torso legs feet shield",
 	set_multiplier = 1.1,
 	water_protect = true,
@@ -372,7 +370,6 @@ armor.set_player_armor = function(self, player)
 	end
 	local state = 0
 	local count = 0
-	local preview = armor:get_preview(name)
 	local texture = "blank.png"
 	local physics = {}
 	local attributes = {}
@@ -418,15 +415,18 @@ armor.set_player_armor = function(self, player)
 					levels["radiation"] = levels["radiation"] + def.groups["armor_radiation"]
 				end
 			end
+			-- Account for bludgeon, slash, and pierce damage groups
+			for _, dmg_group in pairs({"bludgeon", "slash", "pierce"}) do
+				if def.groups["armor_"..dmg_group] then
+					levels[dmg_group] = levels[dmg_group] + def.groups["armor_"..dmg_group]
+				end
+			end
 			local item = stack:get_name()
 			local tex = def.texture or item:gsub("%:", "_")
 			tex = tex:gsub(".png$", "")
-			local prev = def.preview or tex.."_preview"
-			prev = prev:gsub(".png$", "")
 			if not transparent_armor then
 				texture = texture.."^"..tex..".png"
 			end
-			preview = preview.."^"..prev..".png"
 			state = state + stack:get_wear()
 			count = count + 1
 			for _, phys in pairs(self.physics) do
@@ -521,7 +521,6 @@ armor.set_player_armor = function(self, player)
 		end
 	end
 	self.textures[name].armor = texture
-	self.textures[name].preview = preview
 	self.def[name].level = self.def[name].groups.fleshy or 0
 	self.def[name].state = state
 	self.def[name].count = count
@@ -783,27 +782,6 @@ armor.update_skin = function(self, name)
 	end)
 end
 
---- Adds preview for armor inventory.
---
---  @function armor:add_preview
---  @tparam string preview Preview image filename.
-armor.add_preview = function(self, preview)
-	skin_previews[preview] = true
-end
-
---- Retrieves preview for armor inventory.
---
---  @function armor:get_preview
---  @tparam string name Player name.
---  @treturn string Preview image filename.
-armor.get_preview = function(self, name)
-	local preview = string.gsub(armor:get_player_skin(name), ".png", "_preview.png")
-	if skin_previews[preview] then
-		return preview
-	end
-	return "character_preview.png"
-end
-
 --- Retrieves armor formspec.
 --
 --  @function armor:get_armor_formspec
@@ -817,8 +795,14 @@ armor.get_armor_formspec = function(self, name, listring)
 		formspec = formspec.."listring[current_player;main]"..
 			"listring[detached:"..name.."_armor;armor]"
 	end
-	formspec = formspec:gsub("armor_preview", armor.textures[name].preview)
-	formspec = formspec:gsub("armor_level", armor.def[name].level)
+
+	-- armor display formspec
+	local tex = self.textures[name]
+	formspec = formspec ..
+		"model[2.5,0.3;2,3.8;player_mesh;3d_armor_character.b3d;" ..
+		tex.skin..","..tex.armor..";"..
+		"0,180;false;false;0,0]"
+
 	for _, attr in pairs(self.attributes) do
 		formspec = formspec:gsub("armor_attr_"..attr, armor.def[name][attr])
 	end

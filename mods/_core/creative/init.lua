@@ -72,7 +72,7 @@ if minetest.is_creative_enabled("") then
 					dig_immediate =
 						{times = {[2] = digtime, [3] = 0}, uses = 0, maxlevel = 256},
 				},
-				damage_groups = {fleshy = 10},
+				damage_groups = {pierce = 100, slash = 100, bludgeon = 100},
 			}
 		})
 	end)

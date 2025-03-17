@@ -1,15 +1,5 @@
 [3d_armor]
 
-armor_material_wood (Enable wood armor) bool true
-armor_material_cactus (Enable cactus armor) bool true
-armor_material_steel (Enable steel armor) bool true
-armor_material_bronze (Enable bronze armor) bool true
-armor_material_diamond (Enable diamond armor) bool true
-armor_material_gold (Enable gold armor) bool true
-armor_material_mithril (Enable mithril armor) bool true
-armor_material_crystal (Enable crystal armor) bool true
-armor_material_nether (Enable nether armor) bool true
-
 # Increase this if you get initialization glitches when a player first joins.
 armor_init_delay (Initialization delay) int 2
 

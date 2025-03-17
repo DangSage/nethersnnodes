@@ -40,7 +40,6 @@ unified_inventory.register_page("armor", {
 				perplayer_formspec.form_header_x, perplayer_formspec.form_header_y, F(S("Armor")))..
 			string.format("list[detached:%s_armor;armor;%f,%f;2,3;]",
 				name, gridx + ui.list_img_offset, gridy + ui.list_img_offset) ..
-			"image[3.5,"..(fy - 0.25)..";2,4;"..armor.textures[name].preview.."]"..
 			"label[6.0,"..(fy + 0.0)..";"..F(S("Level"))..": "..armor.def[name].level.."]"..
 			"label[6.0,"..(fy + 0.5)..";"..F(S("Heal"))..":  "..armor.def[name].heal.."]"..
 			"listring[current_player;main]"..

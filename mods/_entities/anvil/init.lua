@@ -79,7 +79,7 @@ local hammer_def = {
 			-- about equal to a stone pick (it's not intended as a tool)
 			cracky = {times = {[2] = 2.00, [3] = 1.20}, uses = 30, maxlevel = 1},
 		},
-		damage_groups = {fleshy = 6},
+		damage_groups = {bludgeon = 10},
 	}
 }
 

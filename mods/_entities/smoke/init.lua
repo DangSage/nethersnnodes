@@ -13,7 +13,7 @@ local ITVL=1 -- how fast smoke moves, in seconds. Smoke is generate at twice thi
 local PERSIST=0.91 -- the chance smokes has *not* to dissipate.
 -- This is a very sensitive parameter: in terms of average smoke column average half-height, 0.95 -> 14, 0.93 -> 10 but 0.80 -> 5
 local PERSIST_S=0.96 -- same parameter for smog
-local TRANSPARENCY= "opaque" -- enable/disable transparency ("blend" or "opaque"). Transparency causes visual glitches when smoke is in contact with liquids
+local TRANSPARENCY= "blend" -- enable/disable transparency ("blend" or "opaque"). Transparency causes visual glitches when smoke is in contact with liquids
 local WIND=0.05 -- Chance for a smoke node to move horizontally instead of going up
 
 local SMOKE_DPS=nil -- use it to define the amount of damage per second of smoke nodes.

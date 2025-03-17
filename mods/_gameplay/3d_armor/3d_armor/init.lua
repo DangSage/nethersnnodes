@@ -99,6 +99,9 @@ for _, mod in pairs(skin_mods) do
 	end
 end
 
+armor:register_armor_group("bludgeon")
+armor:register_armor_group("pierce")
+armor:register_armor_group("slash")
 
 -- Armor Initialization
 
@@ -270,7 +273,6 @@ local function init_player_armor(initplayer)
 		skin = skin,
 		armor = "blank.png",
 		wielditem = "blank.png",
-		preview = armor.default_skin.."_preview.png",
 	}
 	local texture_path = minetest.get_modpath("player_textures")
 	if texture_path then
@@ -327,6 +329,7 @@ player_api.register_model("3d_armor_character.b3d", {
 	collisionbox = {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3},
 	stepheight = 0.6,
 	eye_height = 1.47,
+	use_texture_alpha = true,
 })
 
 minetest.register_on_player_receive_fields(function(player, formname, fields)

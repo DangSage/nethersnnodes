@@ -198,7 +198,6 @@ function player_api.globalstep()
 			local animation_speed_mod = model.animation_speed or 30
 			local anim_prefix = ""
 
-			-- Determine if the player is sneaking, and reduce animation speed if so
 			if controls.sneak then
 				anim_prefix = "sneak_"
 			else
@@ -220,12 +219,12 @@ function player_api.globalstep()
 			if player:get_hp() == 0 then
 				player_set_animation(player, "lay")
 			elseif controls.up or controls.down or controls.left or controls.right then
-				if controls.LMB or controls.RMB then
+				if controls.LMB then
 					player_set_animation(player, anim_prefix .. "walk_mine", animation_speed_mod)
 				else
 					player_set_animation(player, anim_prefix .. "walk", animation_speed_mod)
 				end
-			elseif controls.LMB or controls.RMB then
+			elseif controls.LMB then
 				player_set_animation(player, anim_prefix .. "mine", animation_speed_mod)
 			else
 				player_set_animation(player, anim_prefix .. "stand", animation_speed_mod)

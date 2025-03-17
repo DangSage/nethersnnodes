@@ -15,7 +15,7 @@ minetest.override_item("", {
 			snappy = {times={[3]=0.40}, uses=0, maxlevel=1},
 			oddly_breakable_by_hand = {times={[1]=3.50,[2]=2.00,[3]=0.70}, uses=0}
 		},
-		damage_groups = {fleshy=1},
+		damage_groups = {bludgeon=1, slash=1, pierce=1},
 	}
 })
 
@@ -32,7 +32,7 @@ minetest.register_tool("default:pick_wood", {
 		groupcaps={
 			cracky = {times={[3]=1.60}, uses=10, maxlevel=1},
 		},
-		damage_groups = {fleshy=2},
+		damage_groups = {bludgeon=2, slash=1, pierce=2},
 	},
 	sound = {breaks = "default_tool_breaks"},
 	groups = {pickaxe = 1, flammable = 2}
@@ -47,7 +47,7 @@ minetest.register_tool("default:pick_stone", {
 		groupcaps={
 			cracky = {times={[2]=2.0, [3]=1.00}, uses=20, maxlevel=1},
 		},
-		damage_groups = {fleshy=3},
+		damage_groups = {bludgeon=2, slash=1, pierce=3},
 	},
 	sound = {breaks = "default_tool_breaks"},
 	groups = {pickaxe = 1}
@@ -62,7 +62,7 @@ minetest.register_tool("default:pick_bronze", {
 		groupcaps={
 			cracky = {times={[1]=4.50, [2]=1.80, [3]=0.90}, uses=20, maxlevel=2},
 		},
-		damage_groups = {fleshy=4},
+		damage_groups = {bludgeon=2, slash=1, pierce=4},
 	},
 	sound = {breaks = "default_tool_breaks"},
 	groups = {pickaxe = 1}
@@ -77,22 +77,7 @@ minetest.register_tool("default:pick_steel", {
 		groupcaps={
 			cracky = {times={[1]=4.00, [2]=1.60, [3]=0.80}, uses=20, maxlevel=2},
 		},
-		damage_groups = {fleshy=4},
-	},
-	sound = {breaks = "default_tool_breaks"},
-	groups = {pickaxe = 1}
-})
-
-minetest.register_tool("default:pick_mese", {
-	description = S("Mese Pickaxe"),
-	inventory_image = "default_tool_mesepick.png",
-	tool_capabilities = {
-		full_punch_interval = 0.9,
-		max_drop_level=3,
-		groupcaps={
-			cracky = {times={[1]=2.4, [2]=1.2, [3]=0.60}, uses=20, maxlevel=3},
-		},
-		damage_groups = {fleshy=5},
+		damage_groups = {bludgeon=2, slash=1, pierce=4},
 	},
 	sound = {breaks = "default_tool_breaks"},
 	groups = {pickaxe = 1}
@@ -107,7 +92,7 @@ minetest.register_tool("default:pick_diamond", {
 		groupcaps={
 			cracky = {times={[1]=2.0, [2]=1.0, [3]=0.50}, uses=30, maxlevel=3},
 		},
-		damage_groups = {fleshy=5},
+		damage_groups = {bludgeon=2, slash=1, pierce=5},
 	},
 	sound = {breaks = "default_tool_breaks"},
 	groups = {pickaxe = 1}
@@ -127,7 +112,7 @@ minetest.register_tool("default:shovel_wood", {
 		groupcaps={
 			crumbly = {times={[1]=3.00, [2]=1.60, [3]=0.60}, uses=10, maxlevel=1},
 		},
-		damage_groups = {fleshy=2},
+		damage_groups = {bludgeon=2, slash=1, pierce=1},
 	},
 	sound = {breaks = "default_tool_breaks"},
 	groups = {shovel = 1, flammable = 2}
@@ -143,7 +128,7 @@ minetest.register_tool("default:shovel_stone", {
 		groupcaps={
 			crumbly = {times={[1]=1.80, [2]=1.20, [3]=0.50}, uses=20, maxlevel=1},
 		},
-		damage_groups = {fleshy=2},
+		damage_groups = {bludgeon=2, slash=1, pierce=1},
 	},
 	sound = {breaks = "default_tool_breaks"},
 	groups = {shovel = 1}
@@ -159,7 +144,7 @@ minetest.register_tool("default:shovel_bronze", {
 		groupcaps={
 			crumbly = {times={[1]=1.65, [2]=1.05, [3]=0.45}, uses=25, maxlevel=2},
 		},
-		damage_groups = {fleshy=3},
+		damage_groups = {bludgeon=3, slash=1, pierce=1},
 	},
 	sound = {breaks = "default_tool_breaks"},
 	groups = {shovel = 1}
@@ -175,23 +160,7 @@ minetest.register_tool("default:shovel_steel", {
 		groupcaps={
 			crumbly = {times={[1]=1.50, [2]=0.90, [3]=0.40}, uses=30, maxlevel=2},
 		},
-		damage_groups = {fleshy=3},
-	},
-	sound = {breaks = "default_tool_breaks"},
-	groups = {shovel = 1}
-})
-
-minetest.register_tool("default:shovel_mese", {
-	description = S("Mese Shovel"),
-	inventory_image = "default_tool_meseshovel.png",
-	wield_image = "default_tool_meseshovel.png^[transformR90",
-	tool_capabilities = {
-		full_punch_interval = 1.0,
-		max_drop_level=3,
-		groupcaps={
-			crumbly = {times={[1]=1.20, [2]=0.60, [3]=0.30}, uses=20, maxlevel=3},
-		},
-		damage_groups = {fleshy=4},
+		damage_groups = {bludgeon=3, slash=1, pierce=1},
 	},
 	sound = {breaks = "default_tool_breaks"},
 	groups = {shovel = 1}
@@ -207,7 +176,7 @@ minetest.register_tool("default:shovel_diamond", {
 		groupcaps={
 			crumbly = {times={[1]=1.10, [2]=0.50, [3]=0.30}, uses=30, maxlevel=3},
 		},
-		damage_groups = {fleshy=4},
+		damage_groups = {bludgeon=4, slash=1, pierce=1},
 	},
 	sound = {breaks = "default_tool_breaks"},
 	groups = {shovel = 1}
@@ -226,7 +195,7 @@ minetest.register_tool("default:axe_wood", {
 		groupcaps={
 			choppy = {times={[2]=3.00, [3]=1.60}, uses=10, maxlevel=1},
 		},
-		damage_groups = {fleshy=2},
+		damage_groups = {bludgeon=2, slash=1, pierce=2},
 	},
 	sound = {breaks = "default_tool_breaks"},
 	groups = {axe = 1, flammable = 2}
@@ -241,7 +210,7 @@ minetest.register_tool("default:axe_stone", {
 		groupcaps={
 			choppy={times={[1]=3.00, [2]=2.00, [3]=1.30}, uses=20, maxlevel=1},
 		},
-		damage_groups = {fleshy=3},
+		damage_groups = {bludgeon=3, slash=1, pierce=3},
 	},
 	sound = {breaks = "default_tool_breaks"},
 	groups = {axe = 1}
@@ -256,7 +225,7 @@ minetest.register_tool("default:axe_bronze", {
 		groupcaps={
 			choppy={times={[1]=2.75, [2]=1.70, [3]=1.15}, uses=20, maxlevel=2},
 		},
-		damage_groups = {fleshy=4},
+		damage_groups = {bludgeon=4, slash=1, pierce=4},
 	},
 	sound = {breaks = "default_tool_breaks"},
 	groups = {axe = 1}
@@ -271,22 +240,7 @@ minetest.register_tool("default:axe_steel", {
 		groupcaps={
 			choppy={times={[1]=2.50, [2]=1.40, [3]=1.00}, uses=20, maxlevel=2},
 		},
-		damage_groups = {fleshy=4},
-	},
-	sound = {breaks = "default_tool_breaks"},
-	groups = {axe = 1}
-})
-
-minetest.register_tool("default:axe_mese", {
-	description = S("Mese Axe"),
-	inventory_image = "default_tool_meseaxe.png",
-	tool_capabilities = {
-		full_punch_interval = 0.9,
-		max_drop_level=1,
-		groupcaps={
-			choppy={times={[1]=2.20, [2]=1.00, [3]=0.60}, uses=20, maxlevel=3},
-		},
-		damage_groups = {fleshy=6},
+		damage_groups = {bludgeon=4, slash=1, pierce=4},
 	},
 	sound = {breaks = "default_tool_breaks"},
 	groups = {axe = 1}
@@ -301,7 +255,7 @@ minetest.register_tool("default:axe_diamond", {
 		groupcaps={
 			choppy={times={[1]=2.10, [2]=0.90, [3]=0.50}, uses=30, maxlevel=3},
 		},
-		damage_groups = {fleshy=7},
+		damage_groups = {bludgeon=5, slash=1, pierce=7},
 	},
 	sound = {breaks = "default_tool_breaks"},
 	groups = {axe = 1}
@@ -320,7 +274,7 @@ minetest.register_tool("default:dirk_wood", {
 		groupcaps={
 			snappy={times={[2]=1.6, [3]=0.40}, uses=10, maxlevel=1},
 		},
-		damage_groups = {fleshy=2},
+		damage_groups = {bludgeon=1, slash=2, pierce=1},
 	},
 	sound = {breaks = "default_tool_breaks"},
 	groups = {sword = 1, flammable = 2}
@@ -335,7 +289,7 @@ minetest.register_tool("default:dirk_stone", {
 		groupcaps={
 			snappy={times={[2]=1.4, [3]=0.40}, uses=20, maxlevel=1},
 		},
-		damage_groups = {fleshy=4},
+		damage_groups = {bludgeon=1, slash=4, pierce=2},
 	},
 	sound = {breaks = "default_tool_breaks"},
 	groups = {sword = 1}
@@ -350,7 +304,7 @@ minetest.register_tool("default:dirk_bronze", {
 		groupcaps={
 			snappy={times={[1]=2.75, [2]=1.30, [3]=0.375}, uses=25, maxlevel=2},
 		},
-		damage_groups = {fleshy=6},
+		damage_groups = {bludgeon=1, slash=6, pierce=3},
 	},
 	sound = {breaks = "default_tool_breaks"},
 	groups = {sword = 1}
@@ -365,22 +319,7 @@ minetest.register_tool("default:dirk_steel", {
 		groupcaps={
 			snappy={times={[1]=2.5, [2]=1.20, [3]=0.35}, uses=30, maxlevel=2},
 		},
-		damage_groups = {fleshy=6},
-	},
-	sound = {breaks = "default_tool_breaks"},
-	groups = {sword = 1}
-})
-
-minetest.register_tool("default:dirk_mese", {
-	description = S("Mese Dirk"),
-	inventory_image = "default_tool_mese_dirk.png",
-	tool_capabilities = {
-		full_punch_interval = 0.7,
-		max_drop_level=1,
-		groupcaps={
-			snappy={times={[1]=2.0, [2]=1.00, [3]=0.35}, uses=30, maxlevel=3},
-		},
-		damage_groups = {fleshy=7},
+		damage_groups = {bludgeon=1, slash=6, pierce=4},
 	},
 	sound = {breaks = "default_tool_breaks"},
 	groups = {sword = 1}
@@ -395,7 +334,7 @@ minetest.register_tool("default:dirk_diamond", {
 		groupcaps={
 			snappy={times={[1]=1.90, [2]=0.90, [3]=0.30}, uses=40, maxlevel=3},
 		},
-		damage_groups = {fleshy=8},
+		damage_groups = {bludgeon=1, slash=8, pierce=4},
 	},
 	sound = {breaks = "default_tool_breaks"},
 	groups = {sword = 1}
@@ -410,7 +349,7 @@ minetest.register_tool("default:dirk_obsidian", {
 		groupcaps={
 			snappy={times={[1]=1.90, [2]=0.90, [3]=0.30}, uses=40, maxlevel=3},
 		},
-		damage_groups = {fleshy=7},
+		damage_groups = {bludgeon=1, slash=7, pierce=3},
 	},
 	sound = {breaks = "default_tool_breaks"},
 	groups = {sword = 1}

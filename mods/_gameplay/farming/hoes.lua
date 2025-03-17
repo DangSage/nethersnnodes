@@ -172,7 +172,7 @@ farming.register_hoe(":farming:hoe_steel", {
 	inventory_image = "farming_tool_steelhoe.png",
 	max_uses = 200,
 	material = "default:steel_ingot",
-	damage_groups = {fleshy = 2}
+	damage_groups = {strike = 2}
 })
 
 farming.register_hoe(":farming:hoe_bronze", {
@@ -181,7 +181,7 @@ farming.register_hoe(":farming:hoe_bronze", {
 	max_uses = 250,
 	groups = {not_in_creative_inventory = 1},
 	material = "default:bronze_ingot",
-	damage_groups = {fleshy = 2}
+	damage_groups = {strike = 2}
 })
 
 farming.register_hoe(":farming:hoe_mese", {
@@ -189,7 +189,7 @@ farming.register_hoe(":farming:hoe_mese", {
 	inventory_image = "farming_tool_mesehoe.png",
 	max_uses = 350,
 	groups = {not_in_creative_inventory = 1},
-	damage_groups = {fleshy = 3}
+	damage_groups = {strike = 3}
 })
 
 farming.register_hoe(":farming:hoe_diamond", {
@@ -197,7 +197,7 @@ farming.register_hoe(":farming:hoe_diamond", {
 	inventory_image = "farming_tool_diamondhoe.png",
 	max_uses = 500,
 	groups = {not_in_creative_inventory = 1},
-	damage_groups = {fleshy = 3}
+	damage_groups = {strike = 3}
 })
 
 -- Toolranks support

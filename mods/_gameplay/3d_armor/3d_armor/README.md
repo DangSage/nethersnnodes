@@ -54,6 +54,7 @@ Change the following default settings by going to Main Menu>>Settings(Tab)>>All 
     armor_material_mithril = true
     armor_material_crystal = true
     armor_material_nether = true
+	armor_material_chain = true
 
 ### Initialization glitches when a player first joins
  **Increase to prevent glitches**
@@ -181,7 +182,7 @@ Wrapper function for `minetest.register_tool`, which enables the easy registrati
     	texture = "mod_name_leather_chestplate.png",
     	preview = "mod_name_leather_chestplate_preview.png",
     	groups = {armor_torso=1, armor_heal=0, armor_use=2000, flammable=1},
-    	armor_groups = {fleshy=10},
+    	armor_groups = {bludgeon=10, slash=10, pierce=10},
     	damage_groups = {cracky=3, snappy=2, choppy=3, crumbly=2, level=1}
     })
 *See ***armor.lua*** under **3d_armor>>3d_armor** for further examples*
@@ -214,7 +215,7 @@ New armor group is registered called *radiation* and all players start off with 
     	texture = "mod_name_speed_boots.png",
     	preview = "mod_name_speed_boots_preview.png",
     	groups = {armor_feet=1, armor_use=500, physics_speed=1.2, flammable=1},
-    	armor_groups = {fleshy=10, radiation=10},
+    	armor_groups = {bludgeon=10, slash=10, pierce=10, radiation=10},
     	damage_groups = {cracky=3, snappy=3, choppy=3, crumbly=3, level=1},
     	reciprocate_damage = true,
     	on_destroy = function(player, index, stack)
@@ -240,7 +241,7 @@ The above allows armor to block/prevent new damage types but you also need to as
 	    tool_capabilities = {full_punch_interval = 1.2,max_drop_level=0,
 	    groupcaps={
 		    cracky = {times={[3]=1.60}, uses=10, maxlevel=1},},
-		    damage_groups = {fleshy=10,radiation=20},
+		    damage_groups = {bludgeon=10, slash=10, pierce=10,radiation=20},
 		    },
 		sound = {breaks = "default_tool_breaks"},
 	    groups = {pickaxe = 1, flammable = 2}
@@ -312,7 +313,7 @@ The below Diamond chestplate has a 12% chance to completely block all damage (ar
 		description = "Fire Proof Jacket",
 		inventory_image = "mod_name_inv_fire_proof_jacket.png",
 		groups = {armor_torso=1, armor_fire=3, armor_use=1000},
-		armor_groups = {fleshy=10},
+		armor_groups = {bludgeon=10, slash=10, pierce=10},
 		damage_groups = {cracky=2, snappy=1, choppy=1, level=3},
 	})
 
@@ -377,7 +378,7 @@ If all of the above were made of material "wood" the player would recieve an ***
 		description = S("Bronze Helmet"),
 		inventory_image = "3d_armor_inv_helmet_bronze.png",
 		groups = {armor_head=1, armor_heal=6, armor_use=400, physics_speed=-0.01, physics_gravity=0.01},
-		armor_groups = {fleshy=10},
+		armor_groups = {bludgeon=10, slash=10, pierce=10},
 		damage_groups = {cracky=3, snappy=2, choppy=2, crumbly=1, level=2},
 	})
 	

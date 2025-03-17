@@ -328,7 +328,7 @@ function mobs.drive(entity, moving_anim, stand_anim, can_fly, dtime)
 
 				entity.object:punch(entity.object, 1.0, {
 					full_punch_interval = 1.0,
-					damage_groups = {fleshy = damage}
+					damage_groups = {bludgeon = damage}
 				}, nil)
 			end
 
