@@ -7,7 +7,7 @@
 
 anvil = {
 	setting = {
-		item_displacement = 2 / 16,
+		item_displacement = 5/16,
 	}
 }
 
