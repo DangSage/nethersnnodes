@@ -100,7 +100,7 @@ end
 
 -- switch items between hands on configured key press
 local function register_switchkey()
-    local switch_key = minetest.settings:get("offhand_key") or "aux1"
+    local switch_key = minetest.settings:get("offhand_key") or "zoom"
     if switch_key == "none" then
         return
     end
@@ -259,134 +259,129 @@ minetest.register_globalstep(function(dtime)
         end
         offhand[player].hotbar_count = hotbar_count
 
-        if offhand_item ~= "" and item then
-            local item_texture = build_inventory_icon(item)
-            local position = {
-                x = 0.5,
-                y = 1
-            }
-            local offset = {
-                x = - hotbar_size * (hotbar_count + 1) / 2,
-                y = -32
-            }
-            if not offhand_hud.slot then
-                offhand_hud.slot = player:hud_add({
-                    hud_elem_type = "image",
-                    position = position,
-                    offset = offset,
-                    scale = {
-                        x = 2.75,
-                        y = 2.75
-                    },
-                    text = "offhand_slot.png",
-                    z_index = 0
-                })
-            end
-            if not offhand_hud.item then
-                offhand_hud.item = player:hud_add({
-                    hud_elem_type = "image",
-                    position = position,
-                    offset = offset,
-                    scale = {
-                        x = 0.4,
-                        y = 0.4
-                    },
-                    text = item_texture,
-                    z_index = 1
-                })
-            else
-                player:hud_change(offhand_hud.item, "text", item_texture)
-            end
-            if not offhand_hud.wear_bar_bg and minetest.registered_tools[offhand_item] then
-                if offhand_get_wear(player) > 0 then
-                    local texture = "offhand_wear_bar.png^[colorize:#000000"
-                    offhand_hud.wear_bar_bg = player:hud_add({
-                        hud_elem_type = "image",
-                        position = {
-                            x = 0.5,
-                            y = 1
-                        },
-                        offset = {
-                            x = offset.x,
-                            y = offset.y + 19
-                        },
-                        scale = {
-                            x = 40,
-                            y = 3
-                        },
-                        text = texture,
-                        z_index = 2
-                    })
-                    offhand_hud.wear_bar = player:hud_add({
-                        hud_elem_type = "image",
-                        position = {
-                            x = 0.5,
-                            y = 1
-                        },
-                        offset = {
-                            x = offset.x,
-                            y = offset.y + 19
-                        },
-                        scale = {
-                            x = 10,
-                            y = 3
-                        },
-                        text = texture,
-                        z_index = 3
-                    })
-                    update_wear_bar(player, itemstack)
-                end
-            end
+        local item_texture = offhand_item ~= "" and item and build_inventory_icon(item) or "blank.png^[resize:" .. max_offhand_px .. "x" .. max_offhand_px
+        local position = {
+            x = 0.5,
+            y = 1
+        }
+        local offset = {
+            x = - hotbar_size * (hotbar_count + 1) / 2,
+            y = -32
+        }
 
-            if not offhand_hud.item_count and offhand_get_count(player) > 1 then
-                offhand_hud.item_count = player:hud_add({
-                    hud_elem_type = "text",
+        if not offhand_hud.slot then
+            offhand_hud.slot = player:hud_add({
+                hud_elem_type = "image",
+                position = position,
+                offset = offset,
+                scale = {
+                    x = 0.75,
+                    y = 0.75
+                },
+                text = "gui_hotbar_selected.png",
+                z_index = 0
+            })
+        end
+        if not offhand_hud.item then
+            offhand_hud.item = player:hud_add({
+                hud_elem_type = "image",
+                position = position,
+                offset = offset,
+                scale = {
+                    x = 0.4,
+                    y = 0.4
+                },
+                text = item_texture,
+                z_index = 1
+            })
+        else
+            player:hud_change(offhand_hud.item, "text", item_texture)
+        end
+
+        if not offhand_hud.wear_bar_bg and minetest.registered_tools[offhand_item] then
+            if offhand_get_wear(player) > 0 then
+                local texture = "offhand_wear_bar.png^[colorize:#000000"
+                offhand_hud.wear_bar_bg = player:hud_add({
+                    hud_elem_type = "image",
                     position = {
                         x = 0.5,
                         y = 1
                     },
                     offset = {
-                        x = offset.x + 22,
-                        y = offset.y + 14
+                        x = offset.x,
+                        y = offset.y + 19
                     },
                     scale = {
-                        x = 1,
+                        x = 40,
+                        y = 3
+                    },
+                    text = texture,
+                    z_index = 2
+                })
+                offhand_hud.wear_bar = player:hud_add({
+                    hud_elem_type = "image",
+                    position = {
+                        x = 0.5,
                         y = 1
                     },
-                    alignment = {
-                        x = -1,
-                        y = 0
+                    offset = {
+                        x = offset.x,
+                        y = offset.y + 19
                     },
-                    text = offhand_get_count(player),
-                    z_index = 4,
-                    number = 0xFFFFFF
+                    scale = {
+                        x = 10,
+                        y = 3
+                    },
+                    text = texture,
+                    z_index = 3
                 })
+                update_wear_bar(player, itemstack)
             end
+        end
 
-            if offhand_hud.wear_bar then
-                if offhand_hud.last_wear ~= offhand_get_wear(player) then
-                    update_wear_bar(player, itemstack)
-                    offhand_hud.last_wear = offhand_get_wear(player)
-                end
-                if offhand_get_wear(player) <= 0 or not minetest.registered_tools[offhand_item] then
-                    remove_hud(player, "wear_bar_bg")
-                    remove_hud(player, "wear_bar")
-                end
+        if not offhand_hud.item_count and offhand_get_count(player) > 1 then
+            offhand_hud.item_count = player:hud_add({
+                hud_elem_type = "text",
+                position = {
+                    x = 0.5,
+                    y = 1
+                },
+                offset = {
+                    x = offset.x + 22,
+                    y = offset.y + 14
+                },
+                scale = {
+                    x = 1,
+                    y = 1
+                },
+                alignment = {
+                    x = -1,
+                    y = 0
+                },
+                text = offhand_get_count(player),
+                z_index = 4,
+                number = 0xFFFFFF
+            })
+        end
+
+        if offhand_hud.wear_bar then
+            if offhand_hud.last_wear ~= offhand_get_wear(player) then
+                update_wear_bar(player, itemstack)
+                offhand_hud.last_wear = offhand_get_wear(player)
             end
-
-            if offhand_hud.item_count then
-                if offhand_hud.last_count ~= offhand_get_count(player) then
-                    player:hud_change(offhand_hud.item_count, "text", offhand_get_count(player))
-                    offhand_hud.last_count = offhand_get_count(player)
-                end
-                if offhand_get_count(player) <= 1 then
-                    remove_hud(player, "item_count")
-                end
+            if offhand_get_wear(player) <= 0 or not minetest.registered_tools[offhand_item] then
+                remove_hud(player, "wear_bar_bg")
+                remove_hud(player, "wear_bar")
             end
+        end
 
-        elseif offhand_hud.slot then
-            for index, _ in pairs(offhand[player].hud) do
-                remove_hud(player, index)
+        if offhand_hud.item_count then
+            if offhand_hud.last_count ~= offhand_get_count(player) then
+                player:hud_change(offhand_hud.item_count, "text", offhand_get_count(player))
+                offhand_hud.last_count = offhand_get_count(player)
+            end
+            if offhand_get_count(player) <= 1 then
+                remove_hud(player, "item_count")
             end
         end
     end
