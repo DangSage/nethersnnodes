@@ -47,8 +47,8 @@ end)
 offhand.visible_wielditem.model_attachments = {
 	default = {
 		bonename = "Arm_Left",
-		position = vector.new(0, 0.375, 0),
-		rotation = vector.new(180, 90, 0),
+		position = vector.new(0, 0.35, 0.25),
+		rotation = vector.new(90, 0, 0),
 		scale = 0.25
 	}
 }
@@ -57,16 +57,14 @@ offhand.visible_wielditem.item_tweaks = {
 	types = {
 		unknown = {},
 		node = {
-			position = vector.new(0, 0.2, 0),
-			rotation = vector.new(0, 0, 180)
+			position = vector.new(0, 0, 0),
+			rotation = vector.new(0, 0, 45),
+            scale = 0.75
 		},
 		tool = {
-			position = vector.new(0, 0, 0.3),
-			rotation = vector.new(0, 0, 135)
-		},
-		craft = {
-			position = vector.new(0, 0, 0.3),
-			rotation = vector.new(0, 0, 45),
+			position = vector.new(0, -0.075, 0),
+			rotation = vector.new(0, -90, 45),
+			scale = 1.3,
 		}
 	},
 	groups = {},
