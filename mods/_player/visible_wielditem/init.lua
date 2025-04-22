@@ -44,13 +44,13 @@ visible_wielditem.item_tweaks = {
 		unknown = {},
 		node = {
 			position = vector.new(0, 0, 0),
-			rotation = vector.new(0, 0, 45),
+			rotation = vector.new(0, 0, -45),
             scale = 0.75
 		},
 		tool = {
 			position = vector.new(0, -0.075, 0),
 			rotation = vector.new(0, -90, 45),
-            scale = 1.3
+            scale = 1.2
 		}
 	},
 	groups = {},

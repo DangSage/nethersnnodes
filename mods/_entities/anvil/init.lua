@@ -95,7 +95,7 @@ minetest.register_entity("anvil:item", {
 	initial_properties = {
 		hp_max = 1,
 		visual = "wielditem",
-		visual_size = {x = .33, y = .33},
+		visual_size = {x = .35, y = .35},
 		collisionbox = {0, 0, 0, 0, 0, 0},
 		physical = false,
 		textures = {"air"},

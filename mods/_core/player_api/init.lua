@@ -40,7 +40,7 @@ player_api.register_model("character.b3d", {
 	},
 	collisionbox = {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3},
 	stepheight = 0.6,
-	eye_height = 1.47,
+	eye_height = 1.75,
 	use_texture_alpha = "blend",
 })
 

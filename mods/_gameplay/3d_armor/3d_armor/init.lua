@@ -296,7 +296,7 @@ player_api.register_model("3d_armor_character.b3d", {
 		-- Standard animations.
 		stand = {x = 0, y = 79},
 		sneak_stand = {
-			x = 221, y = 222, eye_height = 1.3, override_local = true,
+			x = 221, y = 222, eye_height = 1.45, override_local = true,
 			collisionbox = {-0.3, 0.0, -0.3, 0.3, 1.3, 0.3}
 		},
 		sit = {
@@ -310,7 +310,7 @@ player_api.register_model("3d_armor_character.b3d", {
 
 		walk = {x = 168, y = 187},
 		sneak_walk = {
-			x = 223, y = 243, eye_height = 1.3, override_local = true, animation_speed = 15,
+			x = 223, y = 243, eye_height = 1.45, override_local = true, animation_speed = 15,
 			collisionbox = {-0.3, 0.0, -0.3, 0.3, 1.3, 0.3}
 		},
 
@@ -318,17 +318,17 @@ player_api.register_model("3d_armor_character.b3d", {
 		mine = {x = 189, y = 198},
 		walk_mine = {x = 200, y = 219},
 		sneak_mine = {
-			x = 244, y = 253, eye_height = 1.3, override_local = true, animation_speed = 15,
+			x = 244, y = 253, eye_height = 1.45, override_local = true, animation_speed = 15,
 			collisionbox = {-0.3, 0.0, -0.3, 0.3, 1.3, 0.3}
 		},
 		sneak_walk_mine = {
-			x = 254, y = 273, eye_height = 1.3, override_local = true, animation_speed = 15,
+			x = 254, y = 273, eye_height = 1.45, override_local = true, animation_speed = 15,
 			collisionbox = {-0.3, 0.0, -0.3, 0.3, 1.3, 0.3}
 		},
 	},
 	collisionbox = {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3},
 	stepheight = 0.6,
-	eye_height = 1.47,
+	eye_height = 1.65,
 	use_texture_alpha = true,
 })
 
