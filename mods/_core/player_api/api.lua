@@ -81,6 +81,7 @@ function player_api.set_model(player, model_name)
 			visual_size = model.visual_size,
 			stepheight = model.stepheight
 		})
+		player:set_eye_offset({x = 0, y = 0, z = 0}, {x = 0, y = 0, z = -4})
 		-- sets local_animation, collisionbox & eye_height
 		player_api.set_animation(player, "stand")
 	else
@@ -157,7 +158,7 @@ function player_api.set_animation(player, anim_name, speed, loop)
 	if anim._equals ~= previous_anim._equals then
 		player:set_properties({
 			collisionbox = anim.collisionbox,
-			eye_height = anim.eye_height
+			eye_height = anim.eye_height,
 		})
 	end
 end
