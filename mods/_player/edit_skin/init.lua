@@ -374,35 +374,27 @@ function edit_skin.show_formspec(player)
 		end
 
 		if not (active_tab == "base") then
-			-- Bitwise Operations !?!?!
-			local red = math.floor(selected_color / 0x10000) - 0xff00
-			local green = math.floor(selected_color / 0x100) - 0xff0000 - red * 0x100
-			local blue = selected_color - 0xff000000 - red * 0x10000 - green * 0x100
-			formspec = formspec ..
-				"container[9,8]" ..
-				"scrollbaroptions[min=0;max=255;smallstep=1]" ..
-				
-				"box[0.25,0;4.49,0.38;red]" ..
-				"scrollbar[0.25,0;4.5,0.4;horizontal;red;" .. red .."]" ..
-				"label[2,0.6;".. "Red: " .. red .."]" ..
+		-- Bitwise Operations !?!?!
+		local red = math.floor(selected_color / 0x10000) - 0xff00
+		local green = math.floor(selected_color / 0x100) - 0xff0000 - red * 0x100
+		local blue = selected_color - 0xff000000 - red * 0x10000 - green * 0x100
+		formspec = formspec ..
+			"container[9,8]" ..
+			"scrollbaroptions[min=0;max=255;smallstep=1]" ..
+			
+			"box[0.25,0;4.49,0.38;red]" ..
+			"scrollbar[0.25,0;4.5,0.4;horizontal;red;" .. red .."]" ..
+			"label[2,0.6;".. "Red: " .. red .."]" ..
 
-				"box[0.25,1;4.49,0.38;green]" ..
-				"scrollbar[0.25,1;4.5,0.4;horizontal;green;" .. green .."]" ..
-				"label[2,1.6;".. "Green: " .. green .."]" ..
-				
-				"box[0.25,2;4.49,0.38;blue]" ..
-				"scrollbar[0.25,2;4.5,0.4;horizontal;blue;" .. blue .."]" ..
-				"label[2,2.6;".. "Blue: " .. blue .."]" ..
-
-				-- "box[0.4,0.6;2.49,0.38;green]" ..
-				-- "scrollbar[0.4,0.6;2.5,0.4;horizontal;green;" .. green .."]" ..
-				
-				-- "box[0.4,1.2;2.49,0.38;blue]" ..
-				-- "label[0.2,1.4;-]" ..
-				-- "scrollbar[0.4,1.2;2.5,0.4;horizontal;blue;" .. blue .. "]" ..
-				-- "label[3.0,1.4;+]" ..
-				
-				"container_end[]"
+			"box[0.25,1;4.49,0.38;green]" ..
+			"scrollbar[0.25,1;4.5,0.4;horizontal;green;" .. green .."]" ..
+			"label[2,1.6;".. "Green: " .. green .."]" ..
+			
+			"box[0.25,2;4.49,0.38;blue]" ..
+			"scrollbar[0.25,2;4.5,0.4;horizontal;blue;" .. blue .."]" ..
+			"label[2,2.6;".. "Blue: " .. blue .."]" ..
+			
+			"container_end[]"
 		end
 	end
 	
@@ -413,17 +405,17 @@ function edit_skin.show_formspec(player)
 	
 	if page_num > 1 then
 		formspec = formspec ..
-			"image_button[4.5,6.7;1,1;edit_skin_arrow.png^[transformFX;previous_page;]"
+			"image_button[2.5,6.7;1,1;edit_skin_arrow.png^[transformFX;previous_page;]"
 	end
 	
 	if page_num < page_count then
 		formspec = formspec ..
-			"image_button[9.8,6.7;1,1;edit_skin_arrow.png;next_page;]"
+			"image_button[7.8,6.7;1,1;edit_skin_arrow.png;next_page;]"
 	end
 	
 	if page_count > 1 then
 		formspec = formspec ..
-			"label[7.3,7.2;" .. page_num .. " / " .. page_count .. "]"
+			"label[5.3,7.2;" .. page_num .. " / " .. page_count .. "]"
 	end
 
 	minetest.show_formspec(player:get_player_name(), "edit_skin:edit_skin", formspec)
@@ -525,8 +517,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		
 		local color = 0xff000000 + red * 0x10000 + green * 0x100 + blue
 		if color >= 0 and color <= 0xffffffff then
-			-- We delay resedning the form because otherwise it will break dragging scrollbars
-			formspec_data.form_send_job = minetest.after(0.2, function()
+			-- Delay updating the formspec to avoid breaking scrollbar dragging
+			formspec_data.form_send_job = minetest.after(0.1, function()
 				if player and player:is_player() then
 					skin[active_tab .. "_color"] = color
 					edit_skin.update_player_skin(player)
