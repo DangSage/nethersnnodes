@@ -36,14 +36,14 @@ minetest.register_on_joinplayer(function(player)
 	end
 	inventory_icon.hudids[name].main = {}
 	inventory_icon.hudids[name].main.icon = player:hud_add({
-		hud_elem_type = "image",
+		type = "image",
 		position = {x=1,y=1},
 		scale = {x=1,y=1},
 		offset = {x=-32,y=-32},
 		text = icon,
 	})
 	inventory_icon.hudids[name].main.text = player:hud_add({
-		hud_elem_type = "text",
+		type = "text",
 		position = {x=1,y=1},
 		scale = {x=1,y=1},
 		offset = {x=-36,y=-20},
@@ -73,7 +73,7 @@ minetest.register_on_joinplayer(function(player)
 				end
 				inventory_icon.hudids[name].bags[i] = {}
 				inventory_icon.hudids[name].bags[i].icon = player:hud_add({
-					hud_elem_type = "image",
+					type = "image",
 					position = {x=1,y=1},
 					scale = scale,
 					size = { x=32, y=32 },
@@ -81,7 +81,7 @@ minetest.register_on_joinplayer(function(player)
 					text = icon,
 				})
 				inventory_icon.hudids[name].bags[i].text = player:hud_add({
-					hud_elem_type = "text",
+					type = "text",
 					position = {x=1,y=1},
 					scale = scale,
 					offset = {x=-36,y=-20 -40*i},

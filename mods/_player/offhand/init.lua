@@ -271,7 +271,7 @@ minetest.register_globalstep(function(dtime)
 
         if not offhand_hud.slot then
             offhand_hud.slot = player:hud_add({
-                hud_elem_type = "image",
+                type = "image",
                 position = position,
                 offset = offset,
                 scale = {
@@ -284,7 +284,7 @@ minetest.register_globalstep(function(dtime)
         end
         if not offhand_hud.item then
             offhand_hud.item = player:hud_add({
-                hud_elem_type = "image",
+                type = "image",
                 position = position,
                 offset = offset,
                 scale = {
@@ -302,7 +302,7 @@ minetest.register_globalstep(function(dtime)
             if offhand_get_wear(player) > 0 then
                 local texture = "offhand_wear_bar.png^[colorize:#000000"
                 offhand_hud.wear_bar_bg = player:hud_add({
-                    hud_elem_type = "image",
+                    type = "image",
                     position = {
                         x = 0.5,
                         y = 1
@@ -319,7 +319,7 @@ minetest.register_globalstep(function(dtime)
                     z_index = 2
                 })
                 offhand_hud.wear_bar = player:hud_add({
-                    hud_elem_type = "image",
+                    type = "image",
                     position = {
                         x = 0.5,
                         y = 1
@@ -341,7 +341,7 @@ minetest.register_globalstep(function(dtime)
 
         if not offhand_hud.item_count and offhand_get_count(player) > 1 then
             offhand_hud.item_count = player:hud_add({
-                hud_elem_type = "text",
+                type = "text",
                 position = {
                     x = 0.5,
                     y = 1

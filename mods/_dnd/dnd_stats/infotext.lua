@@ -44,7 +44,7 @@ end)
 minetest.register_on_joinplayer(function(player)
     local name = player:get_player_name()
     local hud_id = player:hud_add({
-        hud_elem_type = "text",
+        type = "text",
         position = {x = 0.9, y = 0},
         offset = {x = 0, y = 0},
         text = "",

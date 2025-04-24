@@ -562,7 +562,7 @@ minetest.register_on_joinplayer(
 	function(player)
 		local player_name = player:get_player_name()
 		local map_def = {
-			hud_elem_type = "image",
+			type = "image",
 			text = "blank.png",
 			position = { x = 0.15, y = 0.90 },
 			alignment = { x = 0, y = -1 },

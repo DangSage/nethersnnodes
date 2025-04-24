@@ -1,1 +1,0 @@
-Configurable sprinting mod that supports player_monoids, hbhunger and hudbars.

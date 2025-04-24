@@ -7,7 +7,7 @@ local hud_def_type_field
 if minetest.features.hud_def_type_field then
 	hud_def_type_field = "type"
 else
-	hud_def_type_field = "hud_elem_type"
+	hud_def_type_field = "type"
 end
 
 hb = {}
